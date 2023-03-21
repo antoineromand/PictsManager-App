@@ -1,4 +1,4 @@
-package com.msc.app
+package com.msc.pictsmanager_app
 
 import org.junit.Test
 

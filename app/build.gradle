@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.msc.app'
+    namespace 'com.msc.pictsmanager_app'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.msc.app"
+        applicationId "com.msc.pictsmanager_app"
         minSdk 24
         targetSdk 33
         versionCode 1

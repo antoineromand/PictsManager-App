@@ -1,4 +1,4 @@
-package com.msc.app.ui.theme
+package com.msc.pictsmanager_app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

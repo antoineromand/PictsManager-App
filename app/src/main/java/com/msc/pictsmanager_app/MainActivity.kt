@@ -1,4 +1,4 @@
-package com.msc.app
+package com.msc.pictsmanager_app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,13 +19,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.msc.app.ui.theme.appTheme
+import com.msc.pictsmanager_app.ui.theme.PictsManagerAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            appTheme() {
+            PictsManagerAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -42,6 +42,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+fun testar() {
+    println("teste")
 }
 
 @Composable
@@ -80,7 +84,7 @@ fun RegisterButton() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    appTheme() {
+    PictsManagerAppTheme {
         Column {
             InputField(title = "username")
             InputField(title = "email")
