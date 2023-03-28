@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext, createContext, ProviderProps } from "react";
 import { useRouter, useSegments } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 interface User {
     username: string;
@@ -34,6 +36,7 @@ function useProtectedRoute(user: User | null): void {
 export async function signIn(username: string, password: string): Promise<{ success: boolean; user?: User; token?: string; error?: string }> {
     try {
         if(username.toLowerCase() === "admin" && password.toLowerCase() === "admin") {
+            await AsyncStorage.setItem('@token', 'token');
             return { success: true, user: { username: "admin" }, token: "token" };
         }
     } catch (error: any) {
