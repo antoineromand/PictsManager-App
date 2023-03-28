@@ -5,8 +5,7 @@ import { Text, View } from '../../components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { AxiosRequestCustom } from '../utils/AxiosRequestCustom';
-import { View } from '../../components/Themed';
-import ProfileTop from '../../components/ProfileTop';
+import ProfileTop from '../../components/profilePage/ProfileTop';
 
 export async function getToken() {
   try {
@@ -28,20 +27,17 @@ export default function TabOneScreen() {
   }, []);
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        stickyHeaderIndices={[2]}>
         <ProfileTop />
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <EditScreenInfo path="app/(tabs)/index.tsx" />
+        <EditScreenInfo path="app/(tabs)/efeghztsx" />
         <EditScreenInfo path="app/(tabs)/index.tsx" />
         <EditScreenInfo path="app/(tabs)/index.tsx" />
         <EditScreenInfo path="app/(tabs)/index.tsx" />
         <EditScreenInfo path="app/(tabs)/index.tsx" />
         <EditScreenInfo path="app/(tabs)/index.tsx" />
       </ScrollView>
-      <Text style={styles.title}>Tab De Test</Text>
-      {token ? <Text style={styles.title}>Token : {token}</Text> : <Text style={styles.title}>Pas de token</Text>}
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
   );
 }
@@ -66,5 +62,5 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
-  },
+  }
 });

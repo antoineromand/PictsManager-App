@@ -1,6 +1,8 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
 import { Text, useColorScheme, View } from 'react-native';
+import { Link, Tabs } from 'expo-router';
+import { Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Colors from '../../constants/Colors';
 import { useAuth } from '../context/authProvider';
@@ -16,13 +18,16 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
   const { signOut }: any = useAuth();
+  const colorScheme = 'light';
+
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors['dark'].background }}>
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+    screenOptions={{
+      headerShown: false,
+      tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+    }}>
       <Tabs.Screen
         name="home"
         options={{
@@ -52,5 +57,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </SafeAreaView>
   );
 }

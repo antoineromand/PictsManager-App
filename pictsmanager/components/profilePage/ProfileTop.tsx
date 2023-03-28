@@ -1,20 +1,20 @@
 import { StyleSheet, Image, ImageBackground } from 'react-native';
-import { Text, View } from './Themed';
+import { Text, View } from '../Themed';
+import StatBar from './StatBar';
 
 export default function ProfileTop() {    
     return (
         <View style={styles.container}>    
-            <ImageBackground source={require('../assets/images/puppy.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../assets/images/puppy.jpg')} style={styles.backgroundImage}>
                 <View style={styles.alignCenter}>
-
                     <Image
-                    //put two styles in one style property
-                    style={[styles.circularImage]}
-                    source={require('../assets/images/images.jpg')}
+                        style={styles.circularImage}
+                        source={require('../../assets/images/images.jpg')}
                     />
                     <Text style={[styles.title]}>Mon Profile</Text>
                     <Text style={styles.subtitle}>Je suis là</Text>
                 </View>
+                <StatBar />
             </ImageBackground>
         </View>
     );
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 250,
+        height: '100%',
     },
     title: {
         fontSize: 20,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         width: '100%',
-        height: 250,
+        height: 'auto',
     },
     alignCenter: {
         alignSelf: 'center',
