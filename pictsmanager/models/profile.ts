@@ -1,4 +1,4 @@
-interface IProfile {
+export interface IProfile {
     id: number;
     userId: number;
     pseudo: string;

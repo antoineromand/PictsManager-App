@@ -28,7 +28,7 @@ export default function ProfileTop(props: IProps) {
                     <Image
                         style={styles.circularImage}
                         source={{uri: circular}}
-                    />
+                        />
                     <Text style={[styles.title]}>Mon Profil</Text>
                     <Text style={styles.subtitle}>Je sulllis là</Text>
                 </View>
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
+        height: 'auto',
+        width: '100%',
     },
     title: {
         fontSize: 20,

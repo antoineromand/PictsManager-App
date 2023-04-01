@@ -6,6 +6,7 @@ import FilterBar from './FilterBar';
 import {IUser} from '../../models/user';
 import React, { useEffect, useState } from 'react';
 import {AxiosRequestCustom} from '../../app/utils/AxiosRequestCustom';
+import ProfilePictures from './ProfilePictures';
 
 export default function ProfilePage(props: {user: IUser}) {
   const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
@@ -20,41 +21,20 @@ export default function ProfilePage(props: {user: IUser}) {
     }, []);
 
     return(
-        <View>
-            <ScrollView stickyHeaderIndices={[1]}>
-                <ProfileTop 
-                  userId={user.id}/>
+        <View style={ {backgroundColor: 'white'}}>
+            <ScrollView stickyHeaderIndices={[1]} style={styles.scrollr}>
+                <ProfileTop userId={user.id}/>
                 <FilterBar />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
-                <EditScreenInfo path="app/(tabs)/index.tsx" />
+                <ProfilePictures />
             </ScrollView>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    scrollr: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    separator: {
-      marginVertical: 30,
-      height: 1,
-      width: '80%',
-    },
-    circularImage: {
-      marginVertical: 30,
-      height: 100,
-      width: 100,
-      borderRadius: 50,
-    },
+      flexDirection: 'column',
+      rowGap: 10,
+    }
   });
