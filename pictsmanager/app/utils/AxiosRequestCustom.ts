@@ -51,17 +51,15 @@ export class AxiosRequestCustom {
     }
 
     async getRequest(requestData: {url: string, body?: { [key: string]: any }, headers?: { [key: string]: string }}) {
-        //make axios get request with the given data
         const config: AxiosRequestConfig = {
             url: requestData.url,
             method: 'GET',
+            data: requestData.body,
             headers: requestData.headers,
         };
-        axios.get(requestData.url, requestData.body).then((response) => {  
-            // console.log(response.data);
+        axios(config).then((response) => {  
             return response.data;
         }).catch((error) => {
-            // console.log(error);
             return error;
         });
         return axios.request(config);

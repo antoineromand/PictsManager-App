@@ -1,8 +1,9 @@
 import { StyleSheet} from 'react-native';
 import { View } from '../../components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect } from 'react';
 import ProfilePage from '../../components/profilePage/ProfilePage';
+import { IUser } from '../../models/user';
+import React, { useEffect, useState } from 'react';
 
 export async function getToken() {
   try {
@@ -15,6 +16,16 @@ export async function getToken() {
 
 export default function TabOneScreen() {
   const [token, setToken] = React.useState<string | null>(null);
+  //user information will be get from the server with the logged in user's id
+  const [user, setUser] = useState<IUser>({
+    id: 0,
+    username: '',
+    email: '',
+    password: '',
+    isPublic: false,
+    isBanned: false,
+  });
+
   getToken().then((value) => {
     setToken(value);
   });
@@ -24,7 +35,7 @@ export default function TabOneScreen() {
   }, []);
   return (
     <View style={styles.container}>
-      <ProfilePage />
+      <ProfilePage user={user}/>
     </View>
   );
 }
