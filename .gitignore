@@ -18,6 +18,9 @@ yarn-error.log
 # Env
 .envrc.local
 
+# Config
+pictsmanager/config/env.ts
+
 # Emacs
 *~
 
