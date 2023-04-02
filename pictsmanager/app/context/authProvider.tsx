@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useContext, createContext, ProviderProps } from "react";
 import { useRouter, useSegments } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { AxiosRequestCustom } from "../utils/AxiosRequestCustom";
+import { env } from "../../config/env";
+import { LoginDTO, RegisterDTO } from "../utils/AuthType";
 
 interface User {
     username: string;
+    token: string;
 }
 
+
 interface AuthContextData {
-    signIn: (username: string, password: string) => Promise<void>;
+    signIn: (credentials: LoginDTO) => Promise<boolean>;
     signOut: () => void;
     user: User | null;
 }
@@ -28,21 +32,36 @@ function useProtectedRoute(user: User | null): void {
       if (!user && !inAuthGroup) {
         router.replace("/sign-in");
       } else if (user && inAuthGroup) {
-        router.replace("/(tabs)/home");
+        setTimeout(() => {
+            router.replace("/(tabs)/home");
+        }, 3000);
       }
     }, [user, segments]);
 }
 
-export async function signIn(username: string, password: string): Promise<{ success: boolean; user?: User; token?: string; error?: string }> {
+export async function signIn(credentials: LoginDTO): Promise<{ success: boolean; user?: User; error?: string }> {
     try {
-        if(username.toLowerCase() === "admin" && password.toLowerCase() === "admin") {
-            await AsyncStorage.setItem('@token', 'token');
-            return { success: true, user: { username: "admin" }, token: "token" };
-        }
+        const req = new AxiosRequestCustom(env.API_URL + '/public/api/auth/login', 'POST', {username: credentials.username, password: credentials.password});
+        const response = await (await req.callWithoutToken());
+        await AsyncStorage.setItem('@token', await response.headers['authorization']);
+        if(response) return { success: true, user: { username: credentials.username, token: response.headers['authorization'] }};
     } catch (error: any) {
         return { success: false, error: error };
     }
     return { success: false, error: "Invalid username or password" };
+
+}
+
+export async function signUp(user: RegisterDTO): Promise<boolean> {
+    try {
+        const req = new AxiosRequestCustom(env.API_URL + '/public/api/auth/register', 'POST', user);
+        const response = await (await req.callWithoutToken());
+        if(response) return true;
+    } catch (error: any) {
+        return false;
+    }
+    return false;
+
 }
 
 export function Provider({ children }: any): JSX.Element {
@@ -51,11 +70,13 @@ export function Provider({ children }: any): JSX.Element {
     useProtectedRoute(user);
     
     const authContextData: AuthContextData = {
-        signIn: async (username, password) => {
-            const result = await signIn(username, password);
+        signIn: async (credentials: LoginDTO) => {
+            const result = await signIn(credentials);
             if (result.success && result.user) {
                 setUser(result.user);
+                return true;
             }
+            return false;
         },
         signOut: () => setUser(null),
         user,

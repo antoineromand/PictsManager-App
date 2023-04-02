@@ -14,6 +14,16 @@ export class AxiosRequestCustom {
         this.headers = {};
     }
 
+    async callWithoutToken() {
+        const config: AxiosRequestConfig = {
+            url: this.url,
+            method: this.method,
+            data: this.data,
+        };
+
+        return axios.request(config);
+    }
+
     async send() {
         // get the token from AsyncStorage
         const token = await AsyncStorage.getItem('@token');
