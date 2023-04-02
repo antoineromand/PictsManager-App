@@ -22,7 +22,7 @@ export default function ProfileTop(props: IProps) {
       }, []);
 
     return (
-        <View style={styles.container}>    
+        <View >
             <ImageBackground source={{uri: backGround}} style={styles.backgroundImage}>
                 <View style={styles.alignCenter}>
                     <Image
@@ -30,7 +30,7 @@ export default function ProfileTop(props: IProps) {
                         source={{uri: circular}}
                         />
                     <Text style={[styles.title]}>Mon Profil</Text>
-                    <Text style={styles.subtitle}>Je sulllis là</Text>
+                    <Text style={styles.subtitle}>Je suis là</Text>
                 </View>
                 <StatBar />
             </ImageBackground>
@@ -42,10 +42,10 @@ export default function ProfileTop(props: IProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 'auto',
-        width: '100%',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // height: 'auto',
+        // width: '100%',
     },
     title: {
         fontSize: 20,
@@ -54,11 +54,6 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 10,
         color: 'grey',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
     circularImage: {
         marginVertical: 20,
@@ -73,11 +68,10 @@ const styles = StyleSheet.create({
         height: 'auto',
     },
     alignCenter: {
+        flex: 1,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: 'rgba(255,255,255,0)',
+        backgroundColor: 'transparent',
         marginBottom: 20,
     },
     });

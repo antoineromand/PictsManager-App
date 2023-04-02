@@ -3,7 +3,11 @@ import { StyleSheet} from 'react-native';
 import FilterButton from './FilterButton';
 import React, { useState } from 'react';
 
-export default function FilterBar() {
+interface IProps {
+    toggleFilter: (isPictures: boolean) => void
+}
+
+export default function FilterBar(props: IProps) {
     let [button1, setButton1] = useState(true);
     let [button2, setButton2] = useState(false);
 

@@ -3,18 +3,25 @@ import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { IPicture } from '../../models/picture';
 import {AxiosRequestCustom} from '../../app/utils/AxiosRequestCustom';
-import PictureTemplate from '../pictures/PictureTemplate';
+import MosaicObject from './MosaicObject';
 
-export default function ProfilePictures() {
+interface IProps {
+    isShowingPictures: boolean,
+    userId: number
+}
+
+export default function MosaicTemplate(props: IProps) {
     let [pictures, setPictures] = useState<IPicture[]>([{url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}]);
-    // let [galleries, setGalleries] = useState<IPicture[]>([]);
+    let [isShowingPictures, setIsShowingPictures] = useState(true);
     // let [activeButton, setActiveButton] = useState(1);
 
     useEffect(() => {
       const request = new AxiosRequestCustom();
-      const picturesRequest = {url: 'https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}}; 
+      if(props.isShowingPictures) {
 
-      request.getRequest(picturesRequest).then((response) => 
+        const picturesRequest = {url: 'https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}};
+
+        request.getRequest(picturesRequest).then((response) =>
           {
             let pictures: IPicture[] = [];
             response.data.photos.forEach((picture: any) => {
@@ -23,12 +30,13 @@ export default function ProfilePictures() {
             setPictures(pictures);
           }
         );
+      }
     }, []);
 
     return (
         <View style={styles.picGallery}>
             {pictures.map((picture, index) => {
-                return <PictureTemplate key={index} url={picture.url!} />
+                return <MosaicObject key={index} url={picture.url!} />
             })}
         </View>
     );

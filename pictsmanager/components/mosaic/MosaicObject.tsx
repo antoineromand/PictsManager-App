@@ -1,14 +1,16 @@
 import { View } from '../Themed';
-import { StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import {StyleSheet, Image, ImageSourcePropType, TouchableOpacity} from 'react-native';
 
 interface IProps {
     url: string;
 }
 
-export default function PictureTemplate(props: IProps) {
+export default function MosaicObject(props: IProps) {
     return (
         <View style={styles.container}>
-            <Image source={{uri: props.url}} style={styles.picture}/>
+            <TouchableOpacity onPress={() => console.log(props.url)} >
+                <Image source={{uri: props.url}} style={styles.picture}/>
+            </TouchableOpacity>
         </View>
     );
 }
