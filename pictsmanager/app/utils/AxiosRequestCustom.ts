@@ -2,19 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export class AxiosRequestCustom {
-    // public url: string;
-    // public method: string;
-    // public data: { [key: string]: any };
-    // public headers: { [key: string]: any };
+    public url: string;
+    public method: string;
+    public data: { [key: string]: any };
+    public headers: { [key: string]: any };
     // public requestData: {url: string, method: string, data: { [key: string]: any }, headers: { [key: string]: any }};
 
-    // constructor(url: string, method: string, data: { [key: string]: any }) {
+    constructor(url: string, method: string, data: { [key: string]: any }) {
 
-    //     // this.url = url;
-    //     // this.method = method;
-    //     // this.data = data;
-    //     // this.headers = {};
-    // }
+        this.url = url;
+        this.method = method;
+        this.data = data;
+        this.headers = {};
+    }
     // constructor(requestData: {url: string, method: string, data: { [key: string]: any }, headers: { [key: string]: any }}) {
     //     this.requestData = requestData;
     // }
@@ -35,16 +35,16 @@ export class AxiosRequestCustom {
         console.log(token);
         // add the token to the headers if it exists
         if (token) {
-            // this.requestData.headers.jwt = token;
+            this.headers.jwt = token;
         }
 
         // create the axios request configuration object
-        // const config: AxiosRequestConfig = {
-        //     url: this.url,
-        //     method: this.method,
-        //     data: this.data,
-        //     headers: this.headers,
-        // };
+        const config: AxiosRequestConfig = {
+            url: this.url,
+            method: this.method,
+            data: this.data,
+            headers: this.headers,
+        };
 
         return "axios.request(config)";
         // return this.requestData.headers;

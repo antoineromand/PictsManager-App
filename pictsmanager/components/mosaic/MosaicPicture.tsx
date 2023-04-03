@@ -3,9 +3,10 @@ import {StyleSheet, Image, ImageSourcePropType, TouchableOpacity} from 'react-na
 
 interface IProps {
     url: string;
+    isPicture: boolean;
 }
 
-export default function MosaicObject(props: IProps) {
+export default function MosaicPicture(props: IProps) {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => console.log(props.url)} >

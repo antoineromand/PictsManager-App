@@ -4,7 +4,7 @@ import FilterButton from './FilterButton';
 import React, { useState } from 'react';
 
 interface IProps {
-    toggleFilter: (isPictures: boolean) => void
+    toggleFilter: () => void
 }
 
 export default function FilterBar(props: IProps) {
@@ -21,6 +21,7 @@ export default function FilterBar(props: IProps) {
             setButton1(false);
             setButton2(true);
         }
+        props.toggleFilter();
     }
 
     return (
