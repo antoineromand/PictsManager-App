@@ -50,14 +50,14 @@ export class AxiosRequestCustom {
         // return this.requestData.headers;
     }
 
-    async getRequest(requestData: {url: string, body?: { [key: string]: any }, headers?: { [key: string]: string }}) {
+    async getRequest(requestData: {url: string,  headers?: { [key: string]: string }}) {
         const config: AxiosRequestConfig = {
             url: requestData.url,
             method: 'GET',
-            data: requestData.body,
             headers: requestData.headers,
         };
-        axios(config).then((response) => {  
+
+        axios(config).then((response) => {
             return response.data;
         }).catch((error) => {
             return error;

@@ -5,6 +5,7 @@ import { IPicture } from '../../models/picture';
 import MosaicPicture from './MosaicPicture';
 import MosaicGallery from './MosaicGallery';
 import axios, {AxiosRequestConfig} from "axios/index";
+import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
 
 interface IProps {
     isShowingPictures: boolean,
@@ -25,26 +26,25 @@ export default function MosaicTemplate(props: IProps) {
     }
 
     useEffect(() => {
+        const request = new AxiosRequestCustom('', 'get', {});
       if(props.isShowingPictures) {
-          apiCall('https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', 'get', {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}).then((response) =>
-          {
-            let pictures: IPicture[] = [];
-            response.data.photos.forEach((picture: any) => {
-              pictures.push({url: picture.src.landscape});
+          const requestImage = {url: 'https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}};
+            request.getRequest(requestImage).then((response) => {
+                let pictures: IPicture[] = [];
+                response.data.photos.forEach((picture: any) => {
+                    pictures.push({url: picture.src.landscape});
+                });
+                setPictures(pictures);
             });
-            setPictures(pictures);
-          }
-        );
       } else {
-          apiCall('https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', 'get', {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}).then((response) =>
-          {
+          const requestImage = {url: 'https://api.pexels.com/v1/search?query=sea&per_page=20&orientation=landscape&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}};
+          request.getRequest(requestImage).then((response) => {
               let pictures: IPicture[] = [];
               response.data.photos.forEach((picture: any) => {
                   pictures.push({url: picture.src.landscape, caption: picture.photographer});
               });
               setPictures(pictures);
-          }
-      );
+          });
       }
     }, [props.isShowingPictures]);
 
