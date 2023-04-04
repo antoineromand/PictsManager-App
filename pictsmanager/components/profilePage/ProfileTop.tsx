@@ -1,11 +1,13 @@
-import { StyleSheet, Image, ImageBackground } from 'react-native';
+import {StyleSheet, Image, ImageBackground, TouchableOpacity} from 'react-native';
 import { Text, View } from '../Themed';
 import StatBar from './StatBar';
 import React, { useEffect, useState } from 'react';
 import { AxiosRequestCustom } from '../../app/utils/AxiosRequestCustom';
+import SettingsWheel from "./SettingsWheel";
 
 interface IProps {
     userId: number;
+    openSettings: () => void;
 }
 
 export default function ProfileTop(props: IProps) {   
@@ -21,9 +23,14 @@ export default function ProfileTop(props: IProps) {
         request.getRequest(backImageRequest).then((response) => setBackGround(response.data.photos[0].src.landscape));
       }, []);
 
+    function toggleSettings() {
+        props.openSettings();
+    }
+
     return (
         <View >
             <ImageBackground source={{uri: backGround}} style={styles.backgroundImage}>
+                <SettingsWheel openSettings={toggleSettings}/>
                 <View style={styles.alignCenter}>
                     <Image
                         style={styles.circularImage}
@@ -42,10 +49,6 @@ export default function ProfileTop(props: IProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // height: 'auto',
-        // width: '100%',
     },
     title: {
         fontSize: 20,
@@ -74,4 +77,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         marginBottom: 20,
     },
+    settings : {
+        //position the settings wheel on the top right of the screen
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        margin: 15,
+    },
+    settingsImage: {
+        height: 35,
+        width: 35,
+    }
     });

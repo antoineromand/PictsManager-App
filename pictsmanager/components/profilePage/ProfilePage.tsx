@@ -7,17 +7,25 @@ import React, { useEffect, useState } from 'react';
 import {AxiosRequestCustom} from '../../app/utils/AxiosRequestCustom';
 import FilterBar from "./FilterBar";
 
-export default function ProfilePage(props: {user: IUser}) {
+interface IProps {
+    openSettings: () => void;
+    user: IUser;
+}
+
+export default function ProfilePage(props: IProps) {
     let [isShowingPictures, setIsShowingPictures] = useState(true);
 
     function ToggleFilter() {
         setIsShowingPictures(!isShowingPictures);
     }
+    function toggleSettings() {
+        props.openSettings();
+    }
 
     return(
         <View style={ {backgroundColor: 'white'}}>
             <ScrollView stickyHeaderIndices={[1]} style={styles.scrollr}>
-                <ProfileTop userId={props.user.id}/>
+                <ProfileTop userId={props.user.id} openSettings={toggleSettings}/>
                 <FilterBar toggleFilter={ToggleFilter}/>
                 <ProfileBottom isShowingPictures={isShowingPictures} userId={props.user.id}/>
             </ScrollView>

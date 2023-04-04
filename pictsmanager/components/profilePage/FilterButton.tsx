@@ -12,7 +12,7 @@ interface IProps {
 export default function FilterButton(props: IProps) {
     let [isActive, setActive] = useState(false);
     return (
-        <View style={[!props.isActive && props.button === 1 ? styles.leftInactive : !props.isActive && props.button === 2 ? styles.rightActive : styles.container]}>
+        <View style={[!props.isActive && props.button === 1 ? styles.leftInactive : !props.isActive && props.button === 2 ? styles.rightInactive : styles.container]}>
             <TouchableOpacity onPress={() => {
                 if(props.isActive) return;
                 props.setActiveButton(props.button);
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
     },
-    rightActive: {
+    rightInactive: {
         flex: 1,
         alignItems: 'center',
         //background color grey
