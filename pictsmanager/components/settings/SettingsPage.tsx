@@ -1,6 +1,8 @@
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Button, Pressable} from "react-native";
 import React, {useEffect, useState} from "react";
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
+import SettingsField from "./SettingsField";
+import SettingsFriends from "./SettingsFriends";
 
 interface IProps {
     openSettings: () => void;
@@ -25,26 +27,13 @@ export default function SettingsPage(props: IProps) {
                 />
             </View>
             <View style={styles.fieldsColumn}>
-                <View style={styles.inputField}>
-                    <Text style={styles.smallTitle}>Settings</Text>
-                    <Text style={styles.inputContent}>Value</Text>
-                </View>
-                <View style={styles.inputField}>
-                    <Text style={styles.smallTitle}>Settings</Text>
-                    <Text style={styles.inputContent}>Value</Text>
-                </View>
-                <View style={styles.inputField}>
-                    <Text style={styles.smallTitle}>Settings</Text>
-                    <Text style={styles.inputContent}>Value</Text>
-                </View>
+                <SettingsField title={'Nom de Compte'} content={'User#462'} />
+                <SettingsField title={'Description'} content={'Profil de voyage'} />
+                <SettingsField title={'Sécurité'} content={'Public'} />
             </View>
             <View style={styles.flexRow}>
-                <TouchableOpacity style={styles.graySquare} onPress={() => props.openSettings()}>
-                    <Text style={styles.centerText}>Friends</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.graySquare} onPress={() => props.openSettings()}>
-                    <Text style={styles.centerText}>Friend Requests</Text>
-                </TouchableOpacity>
+                <SettingsFriends title={'Amis'} />
+                <SettingsFriends title={'Demandes d\'Amis'} />
             </View>
             <Pressable style={styles.deleteAccountButton} >
                 <Text style={styles.deleteAccountText}>Delete Account</Text>
@@ -58,13 +47,15 @@ const styles = StyleSheet.create({
         flex: 1,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
+        alignItems: 'center',
+        paddingVertical: 50,
     },
     backHome : {
         zIndex: 1,
         position: 'absolute',
         top: 0,
         left: 0,
-        margin: 10,
+        margin: 15,
         backgroundColor: 'transparent',
     },
     backHomeImage: {
@@ -72,7 +63,7 @@ const styles = StyleSheet.create({
         width: 35,
     },
     circularImage: {
-        marginVertical: 40,
+        marginVertical: 20,
         height: 100,
         width: 100,
         borderRadius: 50,
@@ -83,66 +74,22 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    inputField: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        backgroundColor: 'rgb(242,242,242)',
-        width: '80%',
-        maxHeight: 50,
-        borderRadius: 10,
-    },
     fieldsColumn: {
         flex: 1,
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        rowGap: 10,
-        backgroundColor: 'transparent',
-    },
-    inputContent: {
-        position: 'absolute',
-        bottom: 5,
-        fontSize: 20,
-        marginLeft: 15,
-    },
-    smallTitle: {
-        fontSize: 10,
-        fontWeight: 'bold',
-        color: 'rgb(150,150,150)',
-        position: 'absolute',
-        top: 5,
-        left: 10,
-
-    },
-    flexContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
+        width: '80%',
+        rowGap: 20,
     },
     flexRow: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
-    },
-    graySquare: {
-        backgroundColor: 'rgb(242,242,242)',
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    centerText: {
-        textAlign: 'center',
+        columnGap: 40,
     },
     deleteAccountButton: {
-        backgroundColor: 'red',
-        width: '80%',
+        backgroundColor: 'rgb(212,65,65)',
+        width: '70%',
         height: 50,
         borderRadius: 10,
         padding: 10,
