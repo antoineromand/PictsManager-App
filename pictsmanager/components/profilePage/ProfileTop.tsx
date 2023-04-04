@@ -14,7 +14,7 @@ export default function ProfileTop(props: IProps) {
     const [backGround, setBackGround] = useState('../../assets/images/puppy.jpg');
     
     useEffect(() => {
-        const request = new AxiosRequestCustom();
+        const request = new AxiosRequestCustom('', 'get', {});
         const circularImageRequest = {url: 'https://api.pexels.com/v1/search?query=nature&per_page=1&orientation=square&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}}; 
         const backImageRequest = {url: 'https://api.pexels.com/v1/search?query=puppy&per_page=1&orientation=landscape&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}}; 
         request.getRequest(circularImageRequest).then((response) => setCircular(response.data.photos[0].src.portrait));
