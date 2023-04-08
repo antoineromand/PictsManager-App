@@ -15,9 +15,6 @@ export class AxiosRequestCustom {
         this.data = data;
         this.headers = {};
     }
-    // constructor(requestData: {url: string, method: string, data: { [key: string]: any }, headers: { [key: string]: any }}) {
-    //     this.requestData = requestData;
-    // }
 
     async callWithoutToken() {
         const config: AxiosRequestConfig = {
