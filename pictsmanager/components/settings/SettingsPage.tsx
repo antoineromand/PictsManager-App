@@ -1,19 +1,28 @@
-import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Button, Pressable} from "react-native";
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Pressable} from "react-native";
 import React, {useEffect, useState} from "react";
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
 import SettingsField from "./SettingsField";
 import SettingsFriends from "./SettingsFriends";
+import UserController from "../../controllers/user";
 
 interface IProps {
     openSettings: () => void;
 }
 export default function SettingsPage(props: IProps) {
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
+    const [username, setUsername] = useState('');
+    const [description, setDescription] = useState('');
+    const [security, setSecurity] = useState(true);
 
     useEffect(() => {
-        const request = new AxiosRequestCustom('', 'get', {});
-        const circularImageRequest = {url: 'https://api.pexels.com/v1/search?query=nature&per_page=1&orientation=square&size=small', headers: {Authorization: `HYE05oqBNnQOA27M2TNBpVRfoFathL9EClnaxjoFyQySGbIRxbAFYlTt`}};
-        request.getRequest(circularImageRequest).then((response) => setCircular(response.data.photos[0].src.portrait));
+        const userController = new UserController();
+        userController.getUserProfile().then((response) => setCircular(response.profilePicture));
+        userController.getUserProfile().then((response) => setDescription(response.description));
+        userController.getUserSecurity().then((response) => {
+            setUsername(response.username);
+            setSecurity(response.public);
+        });
+
     }, []);
     return (
         <View style={styles.container}>
@@ -27,9 +36,9 @@ export default function SettingsPage(props: IProps) {
                 />
             </View>
             <View style={styles.fieldsColumn}>
-                <SettingsField title={'Nom de Compte'} content={'User#462'} />
-                <SettingsField title={'Description'} content={'Profil de voyage'} />
-                <SettingsField title={'Sécurité'} content={'Public'} />
+                <SettingsField title={'Nom de Compte'} content={username} />
+                <SettingsField title={'Description'} content={description} />
+                <SettingsField title={'Sécurité'} content={security ? 'public' : 'private'} />
             </View>
             <View style={styles.flexRow}>
                 <SettingsFriends title={'Amis'} />
