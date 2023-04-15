@@ -1,8 +1,7 @@
-import {StyleSheet, Image, ImageBackground, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, ImageBackground} from 'react-native';
 import { Text, View } from '../Themed';
 import StatBar from './StatBar';
 import React, { useEffect, useState } from 'react';
-import { AxiosRequestCustom } from '../../app/utils/AxiosRequestCustom';
 import SettingsWheel from "./SettingsWheel";
 import UserController from "../../controllers/user";
 
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     settings : {
-        //position the settings wheel on the top right of the screen
         position: 'absolute',
         top: 0,
         right: 0,

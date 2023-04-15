@@ -32,6 +32,13 @@ class UserController {
         const response = await axios.get(`${this.baseURL}/private/api/user/me/security`, {headers: {Authorization: `${token}`}});
         return response.data;
     }
+
+    async updateUserProfile(description: string, profilePicture: string, coverPicture: string): Promise<IUserProfileResponse> {
+        const token = await AsyncStorage.getItem('@token');
+        if(!token) throw new Error('No token found');
+        const response = await axios.put(`${this.baseURL}/private/api/user/me/profil`, {description, profilePicture, coverPicture}, {headers: {Authorization: `${token}`}});
+        return response.data;
+    }
 }
 
 export default UserController;
