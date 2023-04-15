@@ -2,20 +2,20 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IUserSecurityResponse {
-    "username": string,
-    "email": string,
-    "dateOfBirth": string,
-    "public": boolean
+    "username"?: string,
+    "email"?: string,
+    "dateOfBirth"?: string,
+    "public"?: boolean
 }
 
 interface IUserProfileResponse {
-    "description": string,
-    "profilePicture": string,
-    "coverPicture": string
+    "description"?: string,
+    "profilePicture"?: string,
+    "coverPicture"?: string
 }
 
 class UserController {
-    private baseURL = 'http://185.216.26.162:4000';
+    private baseURL: string = 'http://185.216.26.162:4000';
 
     async getUserProfile(): Promise<IUserProfileResponse> {
 
@@ -33,10 +33,38 @@ class UserController {
         return response.data;
     }
 
-    async updateUserProfile(description: string, profilePicture: string, coverPicture: string): Promise<IUserProfileResponse> {
+    async updateUserProfile(userProfile: IUserProfileResponse): Promise<IUserProfileResponse> {
         const token = await AsyncStorage.getItem('@token');
         if(!token) throw new Error('No token found');
-        const response = await axios.put(`${this.baseURL}/private/api/user/me/profil`, {description, profilePicture, coverPicture}, {headers: {Authorization: `${token}`}});
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `http://185.216.26.162:4000/private/api/user/me/profil`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+            },
+            data: JSON.stringify(userProfile)
+        }
+        console.log(`${this.baseURL}`);
+        const response = await axios.request(config);
+        return response.data;
+    }
+
+    async updateUserSecurity(userSecurity: IUserSecurityResponse): Promise<IUserSecurityResponse> {
+        const token = await AsyncStorage.getItem('@token');
+        if (!token) throw new Error('No token found');
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: 'http://185.216.26.162:4000/private/api/user/me/security',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+            },
+            data: JSON.stringify(userSecurity)
+        }
+        const response = await axios.request(config);
         return response.data;
     }
 }

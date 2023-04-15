@@ -8,6 +8,7 @@ import EditModal from "./EditModal";
 interface IProps {
     openSettings: () => void;
 }
+
 export default function SettingsPage(props: IProps) {
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
     const [username, setUsername] = useState('');
@@ -15,6 +16,7 @@ export default function SettingsPage(props: IProps) {
     const [security, setSecurity] = useState(true);
     const [isModalVisible, setIsModalVisible] = React.useState(false);
     const [modalIndex, setModalIndex] = React.useState(0);
+    const userController = new UserController();
 
     const toggleModal = (index: number) => {
         setModalIndex(index);
@@ -28,26 +30,25 @@ export default function SettingsPage(props: IProps) {
     const renderModal = () => {
         switch (modalIndex) {
             case 1:
-                return <EditModal title={'Nom de Compte'} toggleModal={customModal} modalAction={() => { console.log('in') }}/>;
+                return <EditModal title={'Nom de Compte'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
             case 2:
-                return <EditModal title={'Description'} toggleModal={customModal} modalAction={() => { console.log('in') }}/>;
+                return <EditModal title={'Description'} toggleModal={customModal} modalAction={userController.updateUserProfile}/>;
             case 3:
-                return <EditModal title={'Sécurité'} toggleModal={customModal} modalAction={() => { console.log('in') }}/>;
+                return <EditModal title={'Sécurité'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
             default:
                 return null;
         }
     }
 
     useEffect(() => {
-        const userController = new UserController();
-        userController.getUserProfile().then((response) => setCircular(response.profilePicture));
-        userController.getUserProfile().then((response) => setDescription(response.description));
+        userController.getUserProfile().then((response) => setCircular(response.profilePicture!));
+        userController.getUserProfile().then((response) => setDescription(response.description!));
         userController.getUserSecurity().then((response) => {
-            setUsername(response.username);
-            setSecurity(response.public);
+            setUsername(response.username!);
+            setSecurity(response.public!);
         });
 
-    }, []);
+    }, [isModalVisible]);
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.backHome} onPress={() => props.openSettings()}>
