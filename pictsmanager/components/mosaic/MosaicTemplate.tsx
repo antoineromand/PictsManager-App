@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { IPicture } from '../../models/picture';
 import MosaicPicture from './MosaicPicture';
 import MosaicGallery from './MosaicGallery';
-import axios, {AxiosRequestConfig} from "axios/index";
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
+import ShowPicture from "../picture/ShowPicture";
 
 interface IProps {
     isShowingPictures: boolean,
@@ -14,15 +14,12 @@ interface IProps {
 
 export default function MosaicTemplate(props: IProps) {
     let [pictures, setPictures] = useState<IPicture[]>([{url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}]);
-    let [isShowingPictures, setIsShowingPictures] = useState(props.isShowingPictures);
+    const [showPicture, setShowPicture] = useState(false);
+    const [pictureToShow, setPicture] = useState<IPicture>({url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'});
 
-    const apiCall = async (url: string, method: string, data: { [key: string] : string }) => {
-        const config: AxiosRequestConfig = {
-            url: url,
-            method: method,
-            data: data,
-        };
-        return axios.request(config);
+    function togglePicture(showPict: IPicture) {
+        setPicture(showPict);
+        setShowPicture(!showPicture);
     }
 
     useEffect(() => {
@@ -53,7 +50,7 @@ export default function MosaicTemplate(props: IProps) {
             { props.isShowingPictures ?
                 <View style={styles.picGallery}>
                     {pictures.map((picture, index) => {
-                        return <MosaicPicture key={index} url={picture.url!} isPicture={isShowingPictures}/>
+                        return <MosaicPicture key={index} picture={picture} togglePicture={togglePicture}/>
                     })}
                 </View>
                 :
@@ -62,10 +59,11 @@ export default function MosaicTemplate(props: IProps) {
                         <Image source={require('../../assets/images/newGallery.png')} style={styles.picture}/>
                     </TouchableOpacity>
                     {pictures.map((picture, index) => {
-                        return <MosaicGallery key={index} url={picture.url!} isPicture={isShowingPictures} galleryName={picture.caption!}/>
+                        return <MosaicGallery key={index} url={picture.url!} galleryName={picture.caption!}/>
                     })}
                 </View>
             }
+            {showPicture ? <ShowPicture picture={pictureToShow} togglePicture={togglePicture}/> : null}
         </View>
     );
 }

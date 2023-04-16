@@ -1,16 +1,21 @@
 import { View } from '../Themed';
 import {StyleSheet, Image, ImageSourcePropType, TouchableOpacity} from 'react-native';
+import {IPicture} from "../../models/picture";
 
 interface IProps {
-    url: string;
-    isPicture: boolean;
+    picture: IPicture;
+    togglePicture: (showPict: IPicture) => void;
 }
 
 export default function MosaicPicture(props: IProps) {
+    function togglePicture() {
+        props.togglePicture(props.picture);
+    }
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log(props.url)} >
-                <Image source={{uri: props.url}} style={styles.picture}/>
+            <TouchableOpacity onPress={togglePicture} >
+                <Image source={{uri: props.picture.url}} style={styles.picture}/>
             </TouchableOpacity>
         </View>
     );
