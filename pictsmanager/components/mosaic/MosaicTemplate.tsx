@@ -5,22 +5,16 @@ import { IPicture } from '../../models/picture';
 import MosaicPicture from './MosaicPicture';
 import MosaicGallery from './MosaicGallery';
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
-import ShowPicture from "../picture/ShowPicture";
+import FullScreenImage from "../picture/FullScreenImage";
 
 interface IProps {
     isShowingPictures: boolean,
-    userId: number
+    userId: number,
+    fullScreenPicture: (picture: IPicture) => void;
 }
 
 export default function MosaicTemplate(props: IProps) {
     let [pictures, setPictures] = useState<IPicture[]>([{url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}]);
-    const [showPicture, setShowPicture] = useState(false);
-    const [pictureToShow, setPicture] = useState<IPicture>({url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'});
-
-    function togglePicture(showPict: IPicture) {
-        setPicture(showPict);
-        setShowPicture(!showPicture);
-    }
 
     useEffect(() => {
         const request = new AxiosRequestCustom('', 'get', {});
@@ -45,12 +39,16 @@ export default function MosaicTemplate(props: IProps) {
       }
     }, [props.isShowingPictures]);
 
+    function fullScreenPicture(picture: IPicture){
+        props.fullScreenPicture(picture);
+    }
+
     return (
         <View style={styles.container}>
             { props.isShowingPictures ?
                 <View style={styles.picGallery}>
                     {pictures.map((picture, index) => {
-                        return <MosaicPicture key={index} picture={picture} togglePicture={togglePicture}/>
+                        return <MosaicPicture key={index} picture={picture} togglePicture={fullScreenPicture}/>
                     })}
                 </View>
                 :
@@ -63,7 +61,6 @@ export default function MosaicTemplate(props: IProps) {
                     })}
                 </View>
             }
-            {showPicture ? <ShowPicture picture={pictureToShow} togglePicture={togglePicture}/> : null}
         </View>
     );
 }

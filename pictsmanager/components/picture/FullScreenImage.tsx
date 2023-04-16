@@ -6,7 +6,7 @@ interface IProps {
     togglePicture: (showPict: IPicture) => void;
 }
 
-export default function ShowPicture(props: IProps) {
+export default function FullScreenImage(props: IProps) {
     function togglePicture() {
         props.togglePicture(props.picture);
     }
