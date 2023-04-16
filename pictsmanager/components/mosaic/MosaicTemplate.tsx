@@ -5,7 +5,6 @@ import { IPicture } from '../../models/picture';
 import MosaicPicture from './MosaicPicture';
 import MosaicGallery from './MosaicGallery';
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
-import FullScreenImage from "../picture/FullScreenImage";
 
 interface IProps {
     isShowingPictures: boolean,
@@ -23,7 +22,7 @@ export default function MosaicTemplate(props: IProps) {
             request.getRequest(requestImage).then((response) => {
                 let pictures: IPicture[] = [];
                 response.data.photos.forEach((picture: any) => {
-                    pictures.push({url: picture.src.landscape});
+                    pictures.push({url: picture.src.landscape, caption: picture.photographer});
                 });
                 setPictures(pictures);
             });
