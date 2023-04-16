@@ -7,6 +7,7 @@ interface IProps {
     toggleModal: () => void;
     modalAction?: (profile: IUserProfileResponse) => Promise<IUserProfileResponse>;
     securityAction?: (sec: IUserSecurityResponse) => Promise<IUserSecurityResponse>;
+    content: string;
 }
 interface IUserSecurityResponse {
     "username"?: string,
@@ -52,7 +53,7 @@ export default function EditModal(props: IProps){
     return (
             <View style={styles.modalContent}>
                 <Text style={styles.modalTitle}>{props.title}</Text>
-                <TextInput style={styles.modalInput} onChangeText={handleInputChange} />
+                <TextInput style={styles.modalInput} onChangeText={handleInputChange} placeholder={props.content}/>
                 <View style={styles.modalButtons}>
                     <TouchableOpacity style={styles.modalButton} onPress={props.toggleModal}>
                         <Text style={styles.modalButtonText}>Cancel</Text>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     modalButton: {
-        backgroundColor: 'grey',
+        backgroundColor: 'rgb(212,65,65)',
         borderRadius: 10,
         padding: 10,
         margin: 10,

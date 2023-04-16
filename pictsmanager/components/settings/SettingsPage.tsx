@@ -31,13 +31,13 @@ export default function SettingsPage(props: IProps) {
     const renderModal = () => {
         switch (modalIndex) {
             case 1:
-                return <EditModal title={'Nom de Compte'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
+                return <EditModal title={'Nom de Compte'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={username}/>;
             case 2:
-                return <EditModal title={'Description'} toggleModal={customModal} modalAction={userController.updateUserProfile}/>;
+                return <EditModal title={'Description'} toggleModal={customModal} modalAction={userController.updateUserProfile} content={description}/>;
             case 3:
-                return <EditModal title={'Sécurité'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
+                return <EditModal title={'Sécurité'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={security ? 'public' : 'private'}/>;
             case 4:
-                return <EditModal title={'Mot de passe'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
+                return <EditModal title={'Mot de passe'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={'new password'}/>;
             default:
                 return null;
         }
