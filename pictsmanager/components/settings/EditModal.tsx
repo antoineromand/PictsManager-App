@@ -12,7 +12,9 @@ interface IUserSecurityResponse {
     "username"?: string,
     "email"?: string,
     "dateOfBirth"?: string,
-    "public"?: boolean
+    "public"?: boolean,
+    "visibility"?: boolean,
+    "password"?: string
 }
 interface IUserProfileResponse {
     "description"?: string,
@@ -28,11 +30,15 @@ export default function EditModal(props: IProps){
                     props.toggleModal();
                 });
             case 'Sécurité':
-                return props.securityAction!({public: newDescription == 'public'}).then(() => {
+                return props.securityAction!({visibility: newDescription == 'public'}).then(() => {
                     props.toggleModal();
                 });
             case 'Nom de Compte':
                 return props.securityAction!({username: newDescription}).then(() => {
+                    props.toggleModal();
+                });
+            case 'Mot de passe':
+                return props.securityAction!({password: newDescription}).then(() => {
                     props.toggleModal();
                 });
             default:

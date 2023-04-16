@@ -12,6 +12,7 @@ interface IProps {
 export default function SettingsPage(props: IProps) {
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
     const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [description, setDescription] = useState('');
     const [security, setSecurity] = useState(true);
     const [isModalVisible, setIsModalVisible] = React.useState(false);
@@ -35,6 +36,8 @@ export default function SettingsPage(props: IProps) {
                 return <EditModal title={'Description'} toggleModal={customModal} modalAction={userController.updateUserProfile}/>;
             case 3:
                 return <EditModal title={'Sécurité'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
+            case 4:
+                return <EditModal title={'Mot de passe'} toggleModal={customModal} securityAction={userController.updateUserSecurity}/>;
             default:
                 return null;
         }
@@ -64,6 +67,7 @@ export default function SettingsPage(props: IProps) {
                 <SettingsField title={'Nom de Compte'} index={1} content={username} modalAction={toggleModal}/>
                 <SettingsField title={'Description'} index={2} content={description} modalAction={toggleModal}/>
                 <SettingsField title={'Sécurité'} index={3} content={security ? 'public' : 'private'} modalAction={toggleModal}/>
+                <SettingsField title={'Mot de passe'} index={4} content={password} modalAction={toggleModal}/>
             </View>
             <View style={styles.flexRow}>
                 <SettingsFriends title={'Amis'} />
