@@ -1,29 +1,57 @@
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, Pressable} from "react-native";
 import React, {useEffect, useState} from "react";
-import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
 import SettingsField from "./SettingsField";
 import SettingsFriends from "./SettingsFriends";
 import UserController from "../../controllers/user";
+import EditModal from "./EditModal";
 
 interface IProps {
     openSettings: () => void;
 }
+
 export default function SettingsPage(props: IProps) {
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
     const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [description, setDescription] = useState('');
     const [security, setSecurity] = useState(true);
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [modalIndex, setModalIndex] = React.useState(0);
+    const userController = new UserController();
+
+    const toggleModal = (index: number) => {
+        setModalIndex(index);
+        setIsModalVisible(!isModalVisible);
+    }
+
+    const customModal = () => {
+        setIsModalVisible(!isModalVisible);
+    }
+
+    const renderModal = () => {
+        switch (modalIndex) {
+            case 1:
+                return <EditModal title={'Nom de Compte'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={username}/>;
+            case 2:
+                return <EditModal title={'Description'} toggleModal={customModal} modalAction={userController.updateUserProfile} content={description}/>;
+            case 3:
+                return <EditModal title={'Sécurité'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={security ? 'public' : 'private'}/>;
+            case 4:
+                return <EditModal title={'Mot de passe'} toggleModal={customModal} securityAction={userController.updateUserSecurity} content={'new password'}/>;
+            default:
+                return null;
+        }
+    }
 
     useEffect(() => {
-        const userController = new UserController();
-        userController.getUserProfile().then((response) => setCircular(response.profilePicture));
-        userController.getUserProfile().then((response) => setDescription(response.description));
+        userController.getUserProfile().then((response) => setCircular(response.profilePicture!));
+        userController.getUserProfile().then((response) => setDescription(response.description!));
         userController.getUserSecurity().then((response) => {
-            setUsername(response.username);
-            setSecurity(response.public);
+            setUsername(response.username!);
+            setSecurity(response.public!);
         });
 
-    }, []);
+    }, [isModalVisible]);
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.backHome} onPress={() => props.openSettings()}>
@@ -36,9 +64,10 @@ export default function SettingsPage(props: IProps) {
                 />
             </View>
             <View style={styles.fieldsColumn}>
-                <SettingsField title={'Nom de Compte'} content={username} />
-                <SettingsField title={'Description'} content={description} />
-                <SettingsField title={'Sécurité'} content={security ? 'public' : 'private'} />
+                <SettingsField title={'Nom de Compte'} index={1} content={username} modalAction={toggleModal}/>
+                <SettingsField title={'Description'} index={2} content={description} modalAction={toggleModal}/>
+                <SettingsField title={'Sécurité'} index={3} content={security ? 'public' : 'private'} modalAction={toggleModal}/>
+                <SettingsField title={'Mot de passe'} index={4} content={password} modalAction={toggleModal}/>
             </View>
             <View style={styles.flexRow}>
                 <SettingsFriends title={'Amis'} />
@@ -47,22 +76,23 @@ export default function SettingsPage(props: IProps) {
             <Pressable style={styles.deleteAccountButton} >
                 <Text style={styles.deleteAccountText}>Delete Account</Text>
             </Pressable>
+            {isModalVisible ? renderModal() : null}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
+        justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 50,
     },
     backHome : {
         zIndex: 1,
         position: 'absolute',
-        top: 0,
+        top: 20,
         left: 0,
         margin: 15,
         backgroundColor: 'transparent',
@@ -80,18 +110,15 @@ const styles = StyleSheet.create({
         borderWidth: 6,
     },
     alignCenter: {
-        flex: 1,
         alignItems: 'center',
     },
     fieldsColumn: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
         rowGap: 20,
     },
     flexRow: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         columnGap: 40,
@@ -107,7 +134,6 @@ const styles = StyleSheet.create({
     },
     deleteAccountText: {
         color: 'white',
-        // fontSize: 20,
         fontWeight: 'bold',
     }
 });
