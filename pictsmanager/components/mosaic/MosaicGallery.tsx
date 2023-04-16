@@ -3,7 +3,6 @@ import {StyleSheet, ImageBackground, Text, TouchableOpacity} from 'react-native'
 
 interface IProps {
     url: string;
-    isPicture: boolean;
     galleryName: string;
 }
 

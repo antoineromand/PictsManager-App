@@ -3,9 +3,10 @@ import { View } from '../Themed';
 import ProfileTop from './ProfileTop';
 import ProfileBottom from './ProfileBottom';
 import {IUser} from '../../models/user';
+import {IPicture} from "../../models/picture";
 import React, { useEffect, useState } from 'react';
-import {AxiosRequestCustom} from '../../app/utils/AxiosRequestCustom';
 import FilterBar from "./FilterBar";
+import FullScreenImage from "../picture/FullScreenImage";
 
 interface IProps {
     openSettings: () => void;
@@ -14,7 +15,13 @@ interface IProps {
 
 export default function ProfilePage(props: IProps) {
     let [isShowingPictures, setIsShowingPictures] = useState(true);
+    const [fullScreenImage, setFullScreenImage] = useState(false);
+    const [fullScreenPicture, setFullScreenPicture] = useState<IPicture>();
 
+    function togglePicture(picture: IPicture) {
+        setFullScreenPicture(picture);
+        setFullScreenImage(!fullScreenImage);
+    }
     function ToggleFilter() {
         setIsShowingPictures(!isShowingPictures);
     }
@@ -27,8 +34,9 @@ export default function ProfilePage(props: IProps) {
             <ScrollView stickyHeaderIndices={[1]} style={styles.scrollr}>
                 <ProfileTop userId={props.user.id} openSettings={toggleSettings}/>
                 <FilterBar toggleFilter={ToggleFilter}/>
-                <ProfileBottom isShowingPictures={isShowingPictures} userId={props.user.id}/>
+                <ProfileBottom isShowingPictures={isShowingPictures} userId={props.user.id} fullScreenPicture={togglePicture}/>
             </ScrollView>
+            {fullScreenImage && <FullScreenImage picture={fullScreenPicture!} togglePicture={togglePicture}/>}
         </View>
     );
 }

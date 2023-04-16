@@ -4,26 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { IPicture } from '../../models/picture';
 import MosaicPicture from './MosaicPicture';
 import MosaicGallery from './MosaicGallery';
-import axios, {AxiosRequestConfig} from "axios/index";
 import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
 
 interface IProps {
     isShowingPictures: boolean,
-    userId: number
+    userId: number,
+    fullScreenPicture: (picture: IPicture) => void;
 }
 
 export default function MosaicTemplate(props: IProps) {
     let [pictures, setPictures] = useState<IPicture[]>([{url: 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'}]);
-    let [isShowingPictures, setIsShowingPictures] = useState(props.isShowingPictures);
-
-    const apiCall = async (url: string, method: string, data: { [key: string] : string }) => {
-        const config: AxiosRequestConfig = {
-            url: url,
-            method: method,
-            data: data,
-        };
-        return axios.request(config);
-    }
 
     useEffect(() => {
         const request = new AxiosRequestCustom('', 'get', {});
@@ -32,7 +22,7 @@ export default function MosaicTemplate(props: IProps) {
             request.getRequest(requestImage).then((response) => {
                 let pictures: IPicture[] = [];
                 response.data.photos.forEach((picture: any) => {
-                    pictures.push({url: picture.src.landscape});
+                    pictures.push({url: picture.src.landscape, caption: picture.photographer});
                 });
                 setPictures(pictures);
             });
@@ -48,12 +38,16 @@ export default function MosaicTemplate(props: IProps) {
       }
     }, [props.isShowingPictures]);
 
+    function fullScreenPicture(picture: IPicture){
+        props.fullScreenPicture(picture);
+    }
+
     return (
         <View style={styles.container}>
             { props.isShowingPictures ?
                 <View style={styles.picGallery}>
                     {pictures.map((picture, index) => {
-                        return <MosaicPicture key={index} url={picture.url!} isPicture={isShowingPictures}/>
+                        return <MosaicPicture key={index} picture={picture} togglePicture={fullScreenPicture}/>
                     })}
                 </View>
                 :
@@ -62,7 +56,7 @@ export default function MosaicTemplate(props: IProps) {
                         <Image source={require('../../assets/images/newGallery.png')} style={styles.picture}/>
                     </TouchableOpacity>
                     {pictures.map((picture, index) => {
-                        return <MosaicGallery key={index} url={picture.url!} isPicture={isShowingPictures} galleryName={picture.caption!}/>
+                        return <MosaicGallery key={index} url={picture.url!} galleryName={picture.caption!}/>
                     })}
                 </View>
             }
