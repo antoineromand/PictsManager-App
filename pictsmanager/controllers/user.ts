@@ -20,7 +20,6 @@ class UserController {
     private baseURL: string = 'http://185.216.26.162:4000';
 
     async getUserProfile(): Promise<IUserProfileResponse> {
-
         const token = await AsyncStorage.getItem('@token');
         if(!token) throw new Error('No token found');
         const response = await axios.get(`${this.baseURL}/private/api/user/me/profil`, {headers: {Authorization: `${token}`}});
@@ -35,7 +34,6 @@ class UserController {
     }
 
     async getUserSecurity(): Promise<IUserSecurityResponse> {
-
         const token = await AsyncStorage.getItem('@token');
         if(!token) throw new Error('No token found');
         const response = await axios.get(`${this.baseURL}/private/api/user/me/security`, {headers: {Authorization: `${token}`}});
