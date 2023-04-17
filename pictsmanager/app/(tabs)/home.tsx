@@ -35,10 +35,6 @@ export default function TabOneScreen() {
   function toggleSettings() {
     setIsSettingsOpen(!isSettingsOpen);
   }
-  useEffect(() => {
-    // const request = new AxiosRequestCustom('http://localhost:3000', 'GET', {});
-    // request.send().then((response) => console.log(response));
-  }, []);
   return (
     <View style={styles.container}>
       {!isSettingsOpen ?
@@ -46,7 +42,6 @@ export default function TabOneScreen() {
           :
           <SettingsPage openSettings={toggleSettings}/>
       }
-
     </View>
   );
 }

@@ -17,8 +17,8 @@ export default function ProfileTop(props: IProps) {
 
     useEffect(() => {
         const userController = new UserController();
-        userController.getUserProfile().then((response) => setCircular(response.profilePicture));
-        userController.getUserProfile().then((response) => setBackGround(response.coverPicture));
+        userController.getUserProfile().then((response) => setCircular(response.profilePicture!));
+        userController.getUserProfile().then((response) => setBackGround(response.coverPicture!));
       }, []);
 
     function toggleSettings() {

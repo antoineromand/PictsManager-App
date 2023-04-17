@@ -17,7 +17,7 @@ export default function ProfileBottom(props: IProps) {
 
     return (
         <View>
-            <MosaicTemplate isShowingPictures={props.isShowingPictures} userId={props.userId} fullScreenPicture={fullScreenPicture}/>
+            <MosaicTemplate isShowingPictures={props.isShowingPictures} fullScreenPicture={fullScreenPicture}/>
         </View>
     )
 }
