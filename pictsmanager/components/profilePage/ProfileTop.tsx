@@ -5,11 +5,13 @@ import React, { useEffect, useState } from 'react';
 import SettingsWheel from "./SettingsWheel";
 import UserController from "../../controllers/user";
 import {IUser} from "../../models/user";
+import TopBar from "../ui/TopBar";
 
 interface IProps {
     user: IUser;
     openSettings: () => void;
     showSettingsWheel: boolean;
+    backLink?: () => void;
 }
 
 export default function ProfileTop(props: IProps) {
@@ -31,7 +33,7 @@ export default function ProfileTop(props: IProps) {
         <View >
             <ImageBackground source={{uri: backGround}} style={styles.backgroundImage}>
                 {props.showSettingsWheel && <SettingsWheel openSettings={toggleSettings}/>}
-
+                {!props.showSettingsWheel && <TopBar backLink={props.backLink!}/> }
                 <View style={styles.alignCenter}>
                     <Image
                         style={styles.circularImage}

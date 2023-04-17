@@ -33,7 +33,6 @@ export default function SearchPage() {
     const [user, setUser] = useState<IUser>(startUser);
 
     function toggleProfile() {
-        // setUser(startUser);
         setOpenProfile(!openProfile);
     }
 
@@ -62,8 +61,7 @@ export default function SearchPage() {
                 </View>
             :
                 <View style={styles.container}>
-                    <TopBar backLink={toggleProfileAndSetUser} />
-                    <Profile showSettingsWheel={false} user={user} />
+                    <Profile showSettingsWheel={false} user={user} backLink={toggleProfileAndSetUser}/>
                 </View>
         }
         </View>
@@ -72,21 +70,23 @@ export default function SearchPage() {
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        width: '100%',
+        height: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: 35,
         backgroundColor: 'white',
-        padding: 30,
     },
     scrollV: {
         width: Dimensions.get('window').width,
     },
     searchBar: {
-        // width: '100%',
+        marginTop: 20,
     },
     backGround: {
-        backgroundColor: 'white',
+        padding: 0,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     }
 });

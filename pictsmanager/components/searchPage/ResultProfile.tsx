@@ -45,7 +45,6 @@ export default function ResultProfile(props: IProps) {
                         testUser.profile.picture = value.profil.profilePicture!;
                         testUser.profile.background = value.profil.coverPicture!;
                         setUser(testUser);
-                        console.log(value);
                     }
                 );
             }

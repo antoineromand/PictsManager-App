@@ -6,6 +6,7 @@ import TopBar from "../ui/TopBar";
 interface IProps {
     picture: IPicture;
     togglePicture: (showPict: IPicture) => void;
+    showSettingsWheel: boolean;
 }
 
 export default function FullScreenImage(props: IProps) {
@@ -21,7 +22,7 @@ export default function FullScreenImage(props: IProps) {
 
     return (
         <View style={styles.container}>
-            <TopBar backLink={togglePicture} editLink={toggleEditMode}/>
+            {!props.showSettingsWheel ? <TopBar backLink={togglePicture}/> : <TopBar backLink={togglePicture} editLink={toggleEditMode}/>}
             <Image source={{uri: props.picture.url}} style={styles.picture}/>
             <TextInput editable={editMode} style={editMode ? styles.pictureText2 : styles.pictureText}>{props.picture.caption}</TextInput>
         </View>
