@@ -42,7 +42,7 @@ export default function ProfileTop(props: IProps) {
                     <Text style={[styles.title]}>{props.user.username}</Text>
                     <Text style={styles.subtitle}>{props.user.profile.description}</Text>
                 </View>
-                <StatBar />
+                <StatBar stats={ [{title: 'Pictures', value:56}, {title:'Galleries', value: 54}, {title:'Friends', value: 120}] }/>
             </ImageBackground>
         </View>
     );

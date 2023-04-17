@@ -1,12 +1,14 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import ProfileStats from './ProfileStats';
 
-export default function StatBar() {
+interface IProps {
+    stats: { title: string, value: number }[];
+}
+
+export default function StatBar(props: IProps) {
     return (
         <View style={styles.horizontalContainer}>
-            <ProfileStats title={'Photos'} value={54} />
-            <ProfileStats title={'Followers'} value={5} />
-            <ProfileStats title={'Following'} value={504} />
+            {props.stats.map((stat) => <ProfileStats title={stat.title} value={stat.value}/>)}
         </View>
     );
 }
