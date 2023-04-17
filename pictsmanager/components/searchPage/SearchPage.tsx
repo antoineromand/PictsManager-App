@@ -10,10 +10,7 @@ import {IUser} from "../../models/user";
 import TopBar from "../ui/TopBar";
 
 export default function SearchPage() {
-    const [isProfile, setIsProfile] = useState(true);
-    const [searchText, setSearchText] = useState('');
-    const [openProfile, setOpenProfile] = useState(false);
-    const [user, setUser] = useState<IUser>({
+    const startUser: IUser = {
         username: '',
         email: '',
         profile: {
@@ -29,9 +26,20 @@ export default function SearchPage() {
         isBanned: false,
         id: 0,
         password: '',
-    });
+    };
+    const [isProfile, setIsProfile] = useState(true);
+    const [searchText, setSearchText] = useState('');
+    const [openProfile, setOpenProfile] = useState(false);
+    const [user, setUser] = useState<IUser>(startUser);
 
     function toggleProfile() {
+        // setUser(startUser);
+        setOpenProfile(!openProfile);
+    }
+
+    function toggleProfileAndSetUser() {
+        setUser(startUser);
+        setSearchText('');
         setOpenProfile(!openProfile);
     }
 
@@ -54,7 +62,7 @@ export default function SearchPage() {
                 </View>
             :
                 <View style={styles.container}>
-                    <TopBar backLink={toggleProfile} />
+                    <TopBar backLink={toggleProfileAndSetUser} />
                     <Profile user={user} />
                 </View>
         }
