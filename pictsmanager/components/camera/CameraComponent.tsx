@@ -71,8 +71,8 @@ export default function CameraComponent() {
   );
 }
 
-const {width} = useWindowDimensions();
-const height = Math.round((width * 16) / 9) / 1.5;
+// const {width} = useWindowDimensions();
+// const height = Math.round((width * 16) / 9) / 1.5;
 
 const styles = StyleSheet.create({
   container: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     width: '100%',
-    height: height,
+    height: Dimensions.get('window').height,
   },
   captureButton: {
     width: 64,
