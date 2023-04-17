@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   camera: {
-    width: '100%',
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width * 4 / 3,
   },
   captureButton: {
     width: 64,
