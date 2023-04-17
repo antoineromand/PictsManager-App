@@ -4,6 +4,7 @@ import SettingsField from "./SettingsField";
 import SettingsFriends from "./SettingsFriends";
 import UserController from "../../controllers/user";
 import EditModal from "./EditModal";
+import TopBar from "../ui/TopBar";
 
 interface IProps {
     openSettings: () => void;
@@ -54,9 +55,10 @@ export default function SettingsPage(props: IProps) {
     }, [isModalVisible]);
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.backHome} onPress={() => props.openSettings()}>
-                <Image source={require('../../assets/images/settings/backArrow.png')} style={styles.backHomeImage}/>
-            </TouchableOpacity>
+            <TopBar backLink={props.openSettings} />
+            {/*<TouchableOpacity style={styles.backHome} onPress={() => props.openSettings()}>*/}
+            {/*    <Image source={require('../../assets/images/settings/backArrow.png')} style={styles.backHomeImage}/>*/}
+            {/*</TouchableOpacity>*/}
             <View style={styles.alignCenter}>
                 <Image
                     style={styles.circularImage}

@@ -8,8 +8,8 @@ import {AxiosRequestCustom} from "../../app/utils/AxiosRequestCustom";
 
 interface IProps {
     isShowingPictures: boolean,
-    userId: number,
-    fullScreenPicture: (picture: IPicture) => void;
+    userId?: number,
+    fullScreenPicture?: (picture: IPicture) => void;
 }
 
 export default function MosaicTemplate(props: IProps) {
@@ -39,7 +39,7 @@ export default function MosaicTemplate(props: IProps) {
     }, [props.isShowingPictures]);
 
     function fullScreenPicture(picture: IPicture){
-        props.fullScreenPicture(picture);
+        props.fullScreenPicture!(picture);
     }
 
     return (

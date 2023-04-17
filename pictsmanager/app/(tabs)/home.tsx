@@ -1,52 +1,70 @@
 import { StyleSheet} from 'react-native';
 import { View } from '../../components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ProfilePage from '../../components/profilePage/ProfilePage';
-import { IUser } from '../../models/user';
+import {IUser} from '../../models/user';
 import React, { useEffect, useState } from 'react';
-import SettingsWheel from "../../components/profilePage/SettingsWheel";
-import SettingsPage from "../../components/settings/SettingsPage";
-
-export async function getToken() {
-  try {
-    const value = await AsyncStorage.getItem('@token');
-    return value;
-  } catch (error: any) {
-    return null;
-  }
-}
+import Profile from "../../components/profilePage/Profile";
+import UserController from "../../controllers/user";
 
 export default function TabOneScreen() {
-  const [token, setToken] = React.useState<string | null>(null);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  //user information will be gotten from the server with the logged-in user's id
+  const userController = new UserController();
+  const testUser: IUser = {
+    username: '',
+    email: '',
+    profile: {
+      id: 0,
+      userId: 0,
+      pseudo: '',
+      description: '',
+      birthDate: new Date(),
+      picture: '',
+      background: '',
+    },
+    isPublic: false,
+    isBanned: false,
+    id: 0,
+    password: '',
+  }
   const [user, setUser] = useState<IUser>({
     id: 0,
     username: '',
     email: '',
+    profile: {
+        id: 0,
+      userId: 0,
+      pseudo: '',
+      description: '',
+      birthDate: new Date(),
+      picture: '',
+      background: '',
+    },
     password: '',
     isPublic: false,
     isBanned: false,
   });
 
-  getToken().then((value) => {
-    setToken(value);
-  });
-  function toggleSettings() {
-    setIsSettingsOpen(!isSettingsOpen);
-  }
   useEffect(() => {
-    // const request = new AxiosRequestCustom('http://localhost:3000', 'GET', {});
-    // request.send().then((response) => console.log(response));
-  }, []);
+    const myUser = userController.getUserSecurity();
+    myUser.then((value) => {
+        testUser.username = value.username!;
+        testUser.email = value.email!;
+        testUser.isPublic = value.public!;
+        const myUser2 = userController.getUserProfile();
+        myUser2.then((value) => {
+              testUser.profile.description = value.description!;
+              testUser.profile.picture = value.profilePicture!;
+              testUser.profile.background = value.coverPicture!;
+              setUser(testUser);
+            }
+        );
+    }
+    );
+
+  }, [user]);
+
   return (
     <View style={styles.container}>
-      {!isSettingsOpen ?
-          <ProfilePage user={user} openSettings={toggleSettings}/>
-          :
-          <SettingsPage openSettings={toggleSettings}/>
-      }
-
+      <Profile showSettingsWheel={true} user={user}/>
     </View>
   );
 }

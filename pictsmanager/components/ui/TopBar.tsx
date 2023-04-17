@@ -3,7 +3,7 @@ import React from "react";
 
 interface IProps {
     backLink: () => void;
-    editLink: () => void;
+    editLink?: () => void;
 }
 export default function TopBar(props: IProps) {
     return (
@@ -11,9 +11,11 @@ export default function TopBar(props: IProps) {
             <TouchableOpacity style={styles.backHome} onPress={() => props.backLink()}>
                 <Image source={require('../../assets/images/settings/backArrow.png')} style={styles.backHomeImage}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.backHome} onPress={() => props.editLink()}>
-                <Image source={require('../../assets/images/settings/editPen.png')} style={styles.backHomeImage}/>
-            </TouchableOpacity>
+            {props.editLink &&
+                <TouchableOpacity style={styles.backHome} onPress={() => props.editLink!()}>
+                    <Image source={require('../../assets/images/settings/editPen.png')} style={styles.backHomeImage}/>
+                </TouchableOpacity>
+            }
         </View>
     );
 }
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: 0,
+        zIndex:2,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
