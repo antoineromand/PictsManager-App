@@ -1,15 +1,13 @@
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {IUser} from "../models/user";
+import {IPicture} from "../models/picture";
 interface IUserSecurityResponse {
     "username"?: string,
     "email"?: string,
-    "password"?: string,
-    "profile": IUserProfileResponse,
     "dateOfBirth"?: string,
-    "image"?: [string],
-    "public"?: boolean,
-    "banned"?: boolean
+    "profil": IUserProfileResponse,
+    "images"?: [IPicture],
+    "public"?: boolean
 }
 
 interface IUserProfileResponse {

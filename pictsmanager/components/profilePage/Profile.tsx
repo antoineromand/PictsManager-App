@@ -6,6 +6,7 @@ import {View} from "react-native";
 
 interface IProps {
     user: IUser;
+    showSettingsWheel: boolean;
 }
 export  default function Profile(props: IProps) {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -17,7 +18,7 @@ export  default function Profile(props: IProps) {
     return(
         <View>
             {!isSettingsOpen ?
-            <ProfilePage user={props.user} openSettings={toggleSettings}/>
+            <ProfilePage showSettingsWheel={props.showSettingsWheel} user={props.user} openSettings={toggleSettings}/>
             :
             <SettingsPage openSettings={toggleSettings}/>
             }

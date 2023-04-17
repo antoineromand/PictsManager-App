@@ -64,7 +64,7 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <Profile user={user}/>
+      <Profile showSettingsWheel={true} user={user}/>
     </View>
   );
 }

@@ -19,7 +19,8 @@ export default function SearchResult(props: IProps) {
     const [profiles, setProfiles] = useState<ProfileObject[]>([]);
 
     useEffect(() => {
-        if(props.searchText === '') {setProfiles([]); return;};
+        setProfiles([]);
+        if(props.searchText === '') {setProfiles([]); return;}
         fetch('http://185.216.26.162:4000/public/api/user/search?username=' + props.searchText)
             .then(response => {
                 if(response.ok)

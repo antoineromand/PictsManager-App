@@ -63,7 +63,7 @@ export default function SearchPage() {
             :
                 <View style={styles.container}>
                     <TopBar backLink={toggleProfileAndSetUser} />
-                    <Profile user={user} />
+                    <Profile showSettingsWheel={false} user={user} />
                 </View>
         }
         </View>

@@ -41,9 +41,9 @@ export default function ResultProfile(props: IProps) {
                 testUser.isPublic = value.public!;
                 const myUser2 = userController.getUserProfileByUsername(props.username);
                 myUser2.then((value) => {
-                        testUser.profile.description = value.profile.description!;
-                        testUser.profile.picture = value.profile.profilePicture!;
-                        testUser.profile.background = value.profile.coverPicture!;
+                        testUser.profile.description = value.profil.description!;
+                        testUser.profile.picture = value.profil.profilePicture!;
+                        testUser.profile.background = value.profil.coverPicture!;
                         setUser(testUser);
                         console.log(value);
                     }

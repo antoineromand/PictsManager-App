@@ -9,17 +9,18 @@ import {IUser} from "../../models/user";
 interface IProps {
     user: IUser;
     openSettings: () => void;
+    showSettingsWheel: boolean;
 }
 
-export default function ProfileTop(props: IProps) {   
-    
+export default function ProfileTop(props: IProps) {
+
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
     const [backGround, setBackGround] = useState('../../assets/images/puppy.jpg');
     const userController = new UserController();
 
     useEffect(() => {
-        userController.getUserProfileByUsername(props.user.username).then((response) => setCircular(response.profile.profilePicture!));
-        userController.getUserProfileByUsername(props.user.username).then((response) => setBackGround(response.profile.coverPicture!));
+        userController.getUserProfileByUsername(props.user.username).then((response) => setCircular(response.profil.profilePicture!));
+        userController.getUserProfileByUsername(props.user.username).then((response) => setBackGround(response.profil.coverPicture!));
       }, [props.openSettings]);
 
     function toggleSettings() {
@@ -29,7 +30,8 @@ export default function ProfileTop(props: IProps) {
     return (
         <View >
             <ImageBackground source={{uri: backGround}} style={styles.backgroundImage}>
-                <SettingsWheel openSettings={toggleSettings}/>
+                {props.showSettingsWheel && <SettingsWheel openSettings={toggleSettings}/>}
+
                 <View style={styles.alignCenter}>
                     <Image
                         style={styles.circularImage}
