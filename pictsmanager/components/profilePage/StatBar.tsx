@@ -8,7 +8,7 @@ interface IProps {
 export default function StatBar(props: IProps) {
     return (
         <View style={styles.horizontalContainer}>
-            {props.stats.map((stat) => <ProfileStats title={stat.title} value={stat.value}/>)}
+            {props.stats.map((stat, key) => <ProfileStats key={key} title={stat.title} value={stat.value}/>)}
         </View>
     );
 }
