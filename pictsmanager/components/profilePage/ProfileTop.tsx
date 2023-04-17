@@ -4,9 +4,10 @@ import StatBar from './StatBar';
 import React, { useEffect, useState } from 'react';
 import SettingsWheel from "./SettingsWheel";
 import UserController from "../../controllers/user";
+import {IUser} from "../../models/user";
 
 interface IProps {
-    userId: number;
+    user: IUser;
     openSettings: () => void;
 }
 
@@ -14,12 +15,12 @@ export default function ProfileTop(props: IProps) {
     
     const [circular, setCircular] = useState('../../assets/images/puppy.jpg');
     const [backGround, setBackGround] = useState('../../assets/images/puppy.jpg');
+    const userController = new UserController();
 
     useEffect(() => {
-        const userController = new UserController();
-        userController.getUserProfile().then((response) => setCircular(response.profilePicture!));
-        userController.getUserProfile().then((response) => setBackGround(response.coverPicture!));
-      }, []);
+        userController.getUserProfileByUsername(props.user.username).then((response) => setCircular(response.profile.profilePicture!));
+        userController.getUserProfileByUsername(props.user.username).then((response) => setBackGround(response.profile.coverPicture!));
+      }, [props.openSettings]);
 
     function toggleSettings() {
         props.openSettings();
@@ -34,8 +35,8 @@ export default function ProfileTop(props: IProps) {
                         style={styles.circularImage}
                         source={{uri: circular}}
                         />
-                    <Text style={[styles.title]}>Mon Profil</Text>
-                    <Text style={styles.subtitle}>Je suis là</Text>
+                    <Text style={[styles.title]}>{props.user.username}</Text>
+                    <Text style={styles.subtitle}>{props.user.profile.description}</Text>
                 </View>
                 <StatBar />
             </ImageBackground>

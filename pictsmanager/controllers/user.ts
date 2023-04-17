@@ -1,11 +1,15 @@
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {IUser} from "../models/user";
 interface IUserSecurityResponse {
     "username"?: string,
     "email"?: string,
+    "password"?: string,
+    "profile": IUserProfileResponse,
     "dateOfBirth"?: string,
-    "public"?: boolean
+    "image"?: [string],
+    "public"?: boolean,
+    "banned"?: boolean
 }
 
 interface IUserProfileResponse {
@@ -22,6 +26,13 @@ class UserController {
         const token = await AsyncStorage.getItem('@token');
         if(!token) throw new Error('No token found');
         const response = await axios.get(`${this.baseURL}/private/api/user/me/profil`, {headers: {Authorization: `${token}`}});
+        return response.data;
+    }
+
+    async getUserProfileByUsername(username: string): Promise<IUserSecurityResponse> {
+        const token = await AsyncStorage.getItem('@token');
+        if(!token) throw new Error('No token found');
+        const response = await axios.get(`${this.baseURL}/public/api/user?username=${username}`, {headers: {Authorization: `${token}`}});
         return response.data;
     }
 

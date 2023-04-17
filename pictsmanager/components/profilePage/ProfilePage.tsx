@@ -32,7 +32,7 @@ export default function ProfilePage(props: IProps) {
     return(
         <View style={ {backgroundColor: 'white'}}>
             <ScrollView stickyHeaderIndices={[1]} style={styles.scrollr}>
-                <ProfileTop userId={props.user.id} openSettings={toggleSettings}/>
+                <ProfileTop user={props.user} openSettings={toggleSettings}/>
                 <FilterBar toggleFilter={ToggleFilter}/>
                 <ProfileBottom isShowingPictures={isShowingPictures} userId={props.user.id} fullScreenPicture={togglePicture}/>
             </ScrollView>

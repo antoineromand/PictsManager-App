@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Dimensions} from "react-native";
 import ResultProfile from "./ResultProfile";
 import {useEffect, useState} from "react";
+import {IUser} from "../../models/user";
 
 interface ProfileObject {
     username: string;
@@ -10,6 +11,8 @@ interface ProfileObject {
 
 interface IProps {
     searchText: string;
+    setOpenProfile: () => void;
+    setUser: (user: IUser) => void;
 }
 
 export default function SearchResult(props: IProps) {
@@ -26,10 +29,7 @@ export default function SearchResult(props: IProps) {
             }
             )
             .then(data => {
-                if(data.length !== 0)
-                    setProfiles(data)
-                else
-                    setProfiles([])
+                setProfiles(data.length !== 0 ? data : [])
             })
     }
     , [props.searchText])
@@ -37,8 +37,8 @@ export default function SearchResult(props: IProps) {
     return (
         <View style={styles.container}>
             {profiles.length === 0 && <Text>No results</Text>}
-            {profiles.map((profile) => {
-                return <ResultProfile username={profile.username} profilePicture={profile.profil_picture} visibility={profile.visibility} />
+            {profiles.map((profile, key) => {
+                return <ResultProfile key={key} setUser={props.setUser} username={profile.username} profilePicture={profile.profil_picture} visibility={profile.visibility} setOpenProfile={props.setOpenProfile}/>
             })}
         </View>
     )
