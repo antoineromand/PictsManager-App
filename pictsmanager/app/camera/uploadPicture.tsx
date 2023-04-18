@@ -7,7 +7,7 @@ export default function UploadPicture(props: MediaLibrary.Asset) {
     
     return (
         <>
-            <UploadPictureComponent uri={props.uri} />
+            <UploadPictureComponent asset={props} />
         </>
     );
 }
