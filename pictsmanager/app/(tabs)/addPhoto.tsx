@@ -1,31 +1,7 @@
-import { StyleSheet } from 'react-native';
+import CameraComponent from '../../components/camera/CameraComponent';
+import { useIsFocused } from '@react-navigation/native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
-
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Photo</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,0,0,0.8)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
-    </View>
-  );
+export default function AddPhoto() {
+    const isFocused = useIsFocused();
+    return isFocused ? <CameraComponent /> : null;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

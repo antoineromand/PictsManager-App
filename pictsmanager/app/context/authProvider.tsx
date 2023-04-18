@@ -34,7 +34,7 @@ function useProtectedRoute(user: User | null): void {
       } else if (user && inAuthGroup) {
         setTimeout(() => {
             router.replace("/(tabs)/home");
-        }, 3000);
+        }, 500);
       }
     }, [user, segments]);
 }

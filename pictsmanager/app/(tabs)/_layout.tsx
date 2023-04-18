@@ -1,9 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Tabs } from 'expo-router';
 import { Text, View } from 'react-native';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import Colors from '../../constants/Colors';
 import { useAuth } from '../context/authProvider';
 
@@ -28,35 +26,40 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: Colors['light'].tint,
       }}>
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-            headerRight: () => (
-              <View style={{ marginRight: 10 }}>
-                <Text onPress={signOut}>
-                  <FontAwesome name="arrow-circle-o-down" size={24} color="black" />
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="addPhoto"
-          options={{
-            title: 'Photo',
-            tabBarIcon: ({ color }) => <TabBarIcon name="plus" color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="search"
-          options={{
-            title: 'Search',
-            tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
-          }}
-        />
-      </Tabs>
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={'#6c64ec'} />,
+          tabBarActiveTintColor: '#6c64ec',
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <Text onPress={signOut}>
+                <FontAwesome name="arrow-circle-o-down" size={24} color="black" />
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="addPhoto"
+        options={{
+          title: 'Photo',
+          tabBarIcon: ({ color }) => <TabBarIcon name="plus" color={'#6c64ec'} />,
+          tabBarActiveTintColor: '#6c64ec',
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={'#6c64ec'} />,
+          tabBarActiveTintColor: '#6c64ec',
+        }}
+      />
+    </Tabs>
     </SafeAreaView>
+    
   );
 }

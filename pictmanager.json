@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "aa955e70-7e4d-4913-848f-478a6f871c6b",
+		"name": "PictsManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register V1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test\",\n  \"password\": \"test\",\n  \"email\": \"test@gmail.com\",\n  \"dateOfBirth\": \"09/02/1985\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/public/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"public",
+						"api",
+						"auth",
+						"register"
+					]
+				},
+				"description": "The url for register et a body example."
+			},
+			"response": []
+		},
+		{
+			"name": "Login V1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ari\",\n    \"password\": \"ari\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/public/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"public",
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profil",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTY4MDM1ODQxMywiZXhwIjoxNjgwNDQ0ODEzfQ._IrhLfy8fLSkpqsLqbp_ezBJDL_jfgqiQy1bERn3x7U",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/private/api/user/me/profil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"private",
+						"api",
+						"user",
+						"me",
+						"profil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Security",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTY4MDM2MTAwNSwiZXhwIjoxNjgwNDQ3NDA1fQ.9py_DLhqL0JrpYduBMwKQkEu0kbKsQrW3fA7DG_vRZE",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/private/api/user/me/security",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"private",
+						"api",
+						"user",
+						"me",
+						"security"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profil",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTY4MDM2Mzk2NywiZXhwIjoxNjgwNDUwMzY3fQ.RS6DwixO96oeamN39jjERWhzgDVbQ4zJAko99adFZ9w",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"coucou\",\n    \"profilePicture\": \"/test\",\n    \"coverPicture\": \"/test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/private/api/user/me/profil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"private",
+						"api",
+						"user",
+						"me",
+						"profil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user info",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTY4MDM2NTE2NywiZXhwIjoxNjgwNDUxNTY3fQ.-SLNtQJkAm9FtqYMtxiPwv-vQOxOfm6cIH3_UJnKfBs",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test\",\n    \"email\": \"test@gmail.com\",\n    \"dateOfBirth\": \"1985-09-01T22:00:00.000+00:00\",\n    \"public\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/private/api/user/me/security",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"private",
+						"api",
+						"user",
+						"me",
+						"security"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
